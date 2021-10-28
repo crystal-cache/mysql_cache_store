@@ -22,14 +22,16 @@ using [crystal-mysql](https://github.com/crystal-lang/crystal-mysql) as the back
 
 Before using this shard make sure you have created MySQL database. For example `cache_production`:
 
-```
-CREATE DATABASE cache_production character set utf8mb4 collate utf8mb4_unicode_ci;
+```console
+mysql -u root
+
+mysql> CREATE DATABASE cache_production character set utf8mb4 collate utf8mb4_unicode_ci;
 ```
 
 A MySQL database can be opened with:
 
 ```crystal
-db DB.open("mysql://root@localhost/cache_production")
+db = DB.open("mysql://root@localhost/cache_production")
 ```
 
 Open and use the new cache instance:
