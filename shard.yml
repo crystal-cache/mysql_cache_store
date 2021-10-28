@@ -1,0 +1,22 @@
+name: mysql_cache_store
+description: Cache::Store implementation backed by a MySQL database via crystal-mysql.
+version: 0.1.0
+
+authors:
+  - Anton Maminov <anton.maminov@gmail.com>
+
+crystal: ">= 1.0.0"
+
+dependencies:
+  cache:
+    github: crystal-cache/cache
+    version: ">= 0.12.0"
+  mysql:
+    github: crystal-lang/crystal-mysql
+
+development_dependencies:
+  ameba:
+    github: crystal-ameba/ameba
+    branch: develop
+
+license: MIT
