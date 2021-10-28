@@ -170,7 +170,6 @@ end
 
 def mysql
   mysql_user = ENV["MYSQL_USER"]? || "root"
-  mysql_password = ENV["MYSQL_PASSWORD"]? || ""
   mysql_host = ENV["MYSQL_HOST"]? || "localhost"
   mysql_db = ENV["MYSQL_DB"]? || "cache_test"
 
