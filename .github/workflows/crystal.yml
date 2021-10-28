@@ -1,0 +1,72 @@
+name: Crystal CI
+
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: '0 0 * * *'
+
+jobs:
+  check_format:
+    runs-on: ubuntu-latest
+    container: crystallang/crystal
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: shards install --ignore-crystal-version
+
+      - name: Check format
+        run: crystal tool format --check
+  check_ameba:
+    runs-on: ubuntu-latest
+    container: crystallang/crystal
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: shards install
+
+      - name: Check ameba
+        run: ./bin/ameba
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        crystal: ["crystallang/crystal", "crystallang/crystal:nightly"]
+    container: ${{ matrix.crystal }}
+    # Service containers to run with `container-job`
+    services:
+      # Label used to access the service container
+      mysql:
+        # Docker Hub image
+        image: mysql:5.7
+        env:
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+          MYSQL_DATABASE: cache_test
+        ports:
+          - 3306
+        # Set health checks to wait until mysql has started
+        options: >-
+          --health-cmd="mysqladmin ping"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=3
+    steps:
+      # Downloads a copy of the code in your repository before running CI tests
+      - name: Check out repository code
+        uses: actions/checkout@v2
+
+      # Performs a clean installation of all dependencies in the `shard.yml` file
+      - name: Install dependencies
+        run: shards install
+
+      - name: Run tests
+        run: crystal spec
+        env:
+          MYSQL_HOST: mysql
+          MYSQL_PORT: 3306
+          MYSQL_USER: root
+          MYSQL_DB: cache_test
