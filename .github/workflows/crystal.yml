@@ -42,7 +42,7 @@ jobs:
       # Label used to access the service container
       mysql:
         # Docker Hub image
-        image: mysql
+        image: mysql:5.7
         env:
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
           MYSQL_DATABASE: cache_test
@@ -69,5 +69,4 @@ jobs:
           MYSQL_HOST: mysql
           MYSQL_PORT: 3306
           MYSQL_USER: root
-          MYSQL_PASSWORD: ""
           MYSQL_DB: cache_test
