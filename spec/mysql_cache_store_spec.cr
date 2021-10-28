@@ -174,7 +174,6 @@ def mysql
   mysql_host = ENV["MYSQL_HOST"]? || "localhost"
   mysql_db = ENV["MYSQL_DB"]? || "cache_test"
 
-  # DB.open("mysql://#{mysql_user}:#{mysql_password}@#{mysql_host}/#{mysql_db}")
   DB.open("mysql://#{mysql_user}@#{mysql_host}/#{mysql_db}")
 end
 
