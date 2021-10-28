@@ -13,9 +13,8 @@ module Cache
 
     private def write_impl(key : K, value : V, *, expires_in = @expires_in)
       sql = <<-SQL
-        INSERT INTO `#{@table_name}` (`key`, `value`, `expires_in`, `created_at`)
+        REPLACE INTO `#{@table_name}` (`key`, `value`, `expires_in`, `created_at`)
         VALUES (?, ?, ?, ?)
-        ON DUPLICATE KEY UPDATE `value` = '#{value}'
       SQL
 
       @mysql.exec(sql, key, value, expires_in.to_i, Time.utc.to_s("%Y-%m-%d %H:%M:%S"))
