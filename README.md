@@ -49,6 +49,19 @@ cache.read("foo") # => "bar"
 
 ## Development
 
+### Run specs
+
+Before run specs make sure you have created MySQL database `cache_test
+
+```console
+mysql -u root
+
+mysql> CREATE DATABASE cache_test character set utf8mb4 collate utf8mb4_unicode_ci;
+```
+
+```console
+crystal spec
+```
 ## Contributing
 
 1. Fork it (<https://github.com/crystal-cache/mysql_cache_store/fork>)
