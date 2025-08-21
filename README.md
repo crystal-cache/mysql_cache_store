@@ -1,6 +1,6 @@
 # Cache::MySqlCacheStore
 
-![Crystal CI](https://github.com/crystal-cache/mysql_cache_store/workflows/Crystal%20CI/badge.svg)
+[![Crystal CI](https://github.com/crystal-cache/mysql_cache_store/actions/workflows/crystal.yml/badge.svg)](https://github.com/crystal-cache/mysql_cache_store/actions/workflows/crystal.yml)
 [![GitHub release](https://img.shields.io/github/release/crystal-cache/mysql_cache_store.svg)](https://github.com/crystal-cache/maysql_cache_store/releases)
 
 A [cache](https://github.com/crystal-cache/cache) store implementation which stores everything in the MySQL database,
@@ -35,7 +35,6 @@ db = DB.open("mysql://root@localhost/cache_production")
 ```
 
 Open and use the new cache instance:
-
 
 ```crystal
 require "mysql_cache_store"
