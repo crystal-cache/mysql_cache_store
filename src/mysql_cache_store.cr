@@ -89,10 +89,15 @@ module Cache
     end
 
     private def cache_table_exists? : Bool
-      database_name = @mysql.uri.path.lchop('/')
-      sql = "SELECT 1 FROM information_schema.tables WHERE table_schema = '#{database_name}' AND table_name = '#{table_name}'"
+      mysql.query("SHOW TABLES;") do |rs|
+        rs.each do
+          if rs.read(String) == table_name
+            return true
+          end
+        end
+      end
 
-      @mysql.query_one?(sql, as: Int64) == 1
+      false
     end
   end
 end
