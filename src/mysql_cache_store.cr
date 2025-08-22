@@ -3,7 +3,7 @@ require "mysql"
 
 module Cache
   # A cache store implementation which stores everything in the MySQL database
-  struct MySqlCacheStore(K, V) < Store(K, V)
+  struct MySqlCacheStore(V) < Store(V)
     # Creates a new `MySqlCacheStore` attached to the provided database.
     #
     # `table_name` and `expires_in` are required for your connection.
@@ -11,7 +11,7 @@ module Cache
       create_cache_table unless cache_table_exists?
     end
 
-    private def write_impl(key : K, value : V, *, expires_in = @expires_in)
+    private def write_impl(key : String, value : V, *, expires_in = @expires_in)
       sql = <<-SQL
         REPLACE INTO `#{@table_name}` (`key`, `value`, `expires_in`, `created_at`)
         VALUES (?, ?, ?, ?)
@@ -20,7 +20,7 @@ module Cache
       @mysql.exec(sql, key, value, expires_in.to_i, Time.utc.to_s("%Y-%m-%d %H:%M:%S"))
     end
 
-    private def read_impl(key : K)
+    private def read_impl(key : String)
       sql = "SELECT `value`, `created_at`, `expires_in` FROM `#{@table_name}` WHERE `key` = ?"
 
       rs = @mysql.query_one?(sql, key, as: {String, Time, Int32})
@@ -40,7 +40,7 @@ module Cache
       value
     end
 
-    private def delete_impl(key : K) : Bool
+    private def delete_impl(key : String) : Bool
       sql = "DELETE from `#{@table_name}` WHERE `key` = ?"
 
       result = @mysql.exec(sql, key)
@@ -48,7 +48,7 @@ module Cache
       result.rows_affected.zero? ? false : true
     end
 
-    private def exists_impl(key : K) : Bool
+    private def exists_impl(key : String) : Bool
       sql = "SELECT `created_at`, `expires_in` FROM `#{@table_name}` WHERE `key` = ?"
 
       rs = @mysql.query_one?(sql, key, as: {Time, Int32})
