@@ -39,7 +39,7 @@ Open and use the new cache instance:
 ```crystal
 require "mysql_cache_store"
 
-cache = Cache::MySqlCacheStore(String, String).new(1.minute, db)
+cache = Cache::MySqlCacheStore(String).new(1.minute, db)
 
 cache.write("foo", "bar")
 
