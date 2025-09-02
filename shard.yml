@@ -1,6 +1,6 @@
 name: mysql_cache_store
 description: Cache::Store implementation backed by a MySQL database via crystal-mysql.
-version: 0.2.1
+version: 1.0.0
 
 authors:
   - Anton Maminov <anton.maminov@gmail.com>
