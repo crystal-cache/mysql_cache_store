@@ -42,7 +42,7 @@ jobs:
       # Label used to access the service container
       mysql:
         # Docker Hub image
-        image: bitnami/mysql:8.0
+        image: bitnamilegacy/mysql:8.0
         env:
           ALLOW_EMPTY_PASSWORD: yes
           MYSQL_DATABASE: cache_test
