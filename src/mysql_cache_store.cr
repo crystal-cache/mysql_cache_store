@@ -15,7 +15,7 @@ module Cache
       sql = <<-SQL
         REPLACE INTO `#{@table_name}` (`key`, `value`, `expires_in`, `created_at`)
         VALUES (?, ?, ?, ?)
-      SQL
+        SQL
 
       @mysql.exec(sql, key, value, expires_in.to_i, Time.utc.to_s("%Y-%m-%d %H:%M:%S"))
     end
@@ -83,7 +83,7 @@ module Cache
           `expires_in` int NOT NULL,
           `created_at` datetime NOT NULL
         )
-      SQL
+        SQL
 
       @mysql.exec(sql)
     end
