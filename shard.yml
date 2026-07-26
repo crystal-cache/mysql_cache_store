@@ -14,8 +14,4 @@ dependencies:
   mysql:
     github: crystal-lang/crystal-mysql
 
-development_dependencies:
-  ameba:
-    github: crystal-ameba/ameba
-
 license: MIT
